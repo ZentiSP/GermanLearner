@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Word {
+  id           String   @id @default(cuid())
+  german       String
+  english      String
+  definition   String?
+  partOfSpeech String
+  article      String?
+  addedAt      DateTime @default(now())
+}
+
+model DailyScore {
+  id      String   @id @default(cuid())
+  date    DateTime @unique
+  correct Int
+  total   Int
+}
