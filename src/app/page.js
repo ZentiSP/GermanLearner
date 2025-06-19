@@ -1,9 +1,25 @@
-import GetStartBtn from "@/components/getStartBtn";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+import GetStartBtn from "@/components/getStartBtn";
+import Navbar from "@/components/navbar.js";
+
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
+  // 🔒 If user is already logged in, redirect
+  if (session) {
+    redirect("/start");
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0">
+    // Main Container
+    <div className="min-h-screen bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)] flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0">
       {/* Center Grid Box */}
+      <div>
+        <Navbar />
+      </div>
       <main className="flex flex-1 items-center justify-center w-full pt-32 pb-12">
         <div className="bg-[var(--transparent-50)] rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-20 flex flex-col items-center gap-8 max-w-4xl w-full">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 text-center tracking-tight">
