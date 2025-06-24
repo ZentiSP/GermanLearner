@@ -1,7 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
-const protectedPaths = ["/start", "/dashboard", "/profile"];
+const protectedPaths = ["/start", "/dashboard", "/profile", "/storage"];
 
 export async function middleware(request) {
   const { pathname } = request.nextUrl;
@@ -17,5 +17,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/start"],
+  matcher: ["/start","/storage"],
 };

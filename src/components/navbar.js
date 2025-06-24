@@ -6,12 +6,12 @@ import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
-  console.log("Session:", session);
+  // console.log("Session:", session);
 
   const user = session?.user;
 
-  console.log("Session in Navbar:", session);
-  console.log("Status in Navbar:", status);
+  // console.log("Session in Navbar:", session);
+  // console.log("Status in Navbar:", status);
 
   return (
     <nav className="w-full max-w-5xl mx-auto flex justify-center items-center py-6 bg-[var(--transparent-50)] rounded-b-2xl shadow-lg border-b border-neutral-800 fixed top-0 left-1/2 -translate-x-1/2 z-10">
@@ -55,7 +55,7 @@ export default function Navbar() {
           {status === "authenticated" && (
             <>
               <span className="text-sm text-neutral-400 sm:inline">
-                {user?.name || "User"}
+                {user?.id || "User"}
               </span>
               <button
                 onClick={() => signOut()}
