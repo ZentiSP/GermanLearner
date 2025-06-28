@@ -1,0 +1,58 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "echo",
+            "type": "shell",
+            "command": "echo Hello"
+        },
+        {
+            "label": "Start mongod",
+            "type": "shell",
+            "command": "mongod",
+            "args": [
+                "--dbpath",
+                "C:\\data\\db",
+                "--replSet",
+                "rs0"
+            ],
+            "presentation": {
+                "group": "mongod",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Start mongosh",
+            "type": "shell",
+            "command": "mongosh",
+            "presentation": {
+                "group": "mongosh",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Hello",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "Hello, World!"
+            ],
+        }
+    ],
+    "compounds": [
+        {
+            "label": "Start MongoDB Environment",
+            "dependsOn": [
+                "Start mongod",
+                "Start mongosh"
+            ],
+            "dependsOrder": "sequence"
+        }
+    ]
+}

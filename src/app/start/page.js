@@ -61,7 +61,7 @@ export default function Home() {
               </span>
             </div>
           </Link>
-          <Link href="/flashcard" className="block flex-1 max-w-xs group">
+          <Link href="/flashcards" className="block flex-1 max-w-xs group">
             <div className="w-full h-56 bg-[var(--luxury-black-2)] rounded-xl shadow-lg flex flex-col justify-center items-center p-6 hover:bg-[var(--luxury-gold-light)] hover:scale-105 transition-all duration-350 cursor-pointer">
               {/* Flashcard Icon */}
               <svg
