@@ -34,13 +34,13 @@ export default function Navbar() {
 
         <div className="flex items-center space-x-4">
           <a
-            href="#Flashcards"
+            href="/flashcards"
             className="text-base text-neutral-300 hover:text-[var(--luxury-gold)] transition-colors px-3 py-1 rounded"
           >
             Flashcards
           </a>
           <a
-            href="#Storage"
+            href="/storage"
             className="text-base text-neutral-300 hover:text-[var(--luxury-gold)] transition-colors px-3 py-1 rounded"
           >
             Storage
