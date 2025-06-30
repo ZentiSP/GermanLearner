@@ -7,9 +7,9 @@ German Learner is a modern web application for mastering German vocabulary and p
 - 🔒 **Authentication**: Secure login with Google or email/password (NextAuth)
 - 📦 **Word, Phrase, and Sentence Storage**: Organize your vocabulary, phrases, and example sentences
 - 🃏 **Flashcards**: Practice with daily, random, or custom flashcard sets
-- 🏆 **Progress Tracking**: Track your daily learning score
-- 🎨 **Responsive UI**: Beautiful, mobile-friendly design with custom color themes
-- 🛠️ **Admin & Profile Pages**: Manage your account and settings
+<!-- - 🏆 **Progress Tracking**: Track your daily learning score -->
+<!-- - 🎨 **Responsive UI**: Beautiful, mobile-friendly design with custom color themes -->
+<!-- - 🛠️ **Admin & Profile Pages**: Manage your account and settings -->
 
 ## Getting Started
 
