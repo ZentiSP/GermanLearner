@@ -57,7 +57,3 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 ---
 
-## Project Structure
-
-- `src/app/` — Next.js app directory (pages, API routes, layouts)
-- `src/components/` — Reusable React components (Navbar, Modals, etc.)
