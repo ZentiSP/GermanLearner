@@ -1,8 +1,11 @@
 "use client";
+
+import React from "react";
+
 import Navbar from "@/components/navbar";
 import EditModal from "@/components/EditModal";
 import AddModal from "@/components/AddModal";
-import React from "react";
+import CardModal from "@/components/CardModal";
 
 import { addWord } from "@/lib/db";
 
@@ -43,10 +46,15 @@ export default function Home() {
   const [words, setWords] = React.useState(initialWords);
   const [phrases, setPhrases] = React.useState(initialPhrases);
   const [sentences, setSentences] = React.useState(initialSentences);
+  const [viewMode, setViewMode] = React.useState("table");
 
   // Modal state
   const [modalOpen, setModalOpen] = React.useState(false);
   const [editingItem, setEditingItem] = React.useState(null);
+
+  // Card view state
+  const [cardOpen, setCardOpen] = React.useState(null);
+  const [opencard, setOpencard] = React.useState(null);
 
   // Add form state
   const [newFields, setNewFields] = React.useState({});
@@ -179,22 +187,41 @@ export default function Home() {
   };
 
   // Open modal for editing
-  const handleEdit = (item) => {
+  const handleEdit = async (item) => {
     setEditingItem(item);
     setModalOpen(true);
   };
 
   // Save edit
-  const handleSave = () => {
-    setData(data.map((f) => (f.id === editingItem.id ? editingItem : f)));
-    setModalOpen(false);
+  const handleSave = async () => {
+    console.log("Saving item:", editingItem);
+    if (!editingItem) return;
+    const res = await fetch(`/api/storage/${mode}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editingItem),
+    });
+
+    if (!res.ok) {
+      console.error("Failed to save item:", res.statusText);
+      return;
+    }
+
     setEditingItem(null);
+    setModalOpen(false);
+    fetchData(); // Refresh data after saving
   };
 
   // Cancel edit
   const handleCancel = () => {
     setModalOpen(false);
     setEditingItem(null);
+  };
+
+  // Open card view
+  const handleOpenCard = (item) => {
+    setOpencard(item);
+    setCardOpen("card");
   };
 
   const fetchData = async () => {
@@ -232,18 +259,24 @@ export default function Home() {
   }, [mode]);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]">
+      <CardModal
+        open={cardOpen === "card"}
+        item={opencard}
+        fields={fields[mode]}
+        onClose={() => setCardOpen(null)}
+      />
       <Navbar />
-      <div className="flex flex-col items-center justify-center w-full pt-32 pb-12">
+      <div className="flex flex-col items-center  w-full pt-32 pb-12">
         <h1 className="relative text-3xl text-left font-extrabold text-[var(--luxury-gold-light)] mb-2">
           Storage for German Learner
         </h1>
         {/* Toggle */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-4 m-6">
           <button
             className={`px-4 py-2 rounded-full font-semibold transition-colors ${
               mode === "word"
-                ? "bg-amber-500 text-white"
+                ? "bg-[var(--luxury-gold)] text-black"
                 : "bg-neutral-800 text-[var(--luxury-gold-light)]"
             }`}
             onClick={() => setMode("word")}
@@ -253,7 +286,7 @@ export default function Home() {
           <button
             className={`px-4 py-2 rounded-full font-semibold transition-colors ${
               mode === "phrase"
-                ? "bg-amber-500 text-white"
+                ? "bg-[var(--luxury-gold)] text-black"
                 : "bg-neutral-800 text-[var(--luxury-gold-light)]"
             }`}
             onClick={() => setMode("phrase")}
@@ -263,7 +296,7 @@ export default function Home() {
           <button
             className={`px-4 py-2 rounded-full font-semibold transition-colors ${
               mode === "sentence"
-                ? "bg-amber-500 text-white"
+                ? "bg-[var(--luxury-gold)] text-black"
                 : "bg-neutral-800 text-[var(--luxury-gold-light)]"
             }`}
             onClick={() => setMode("sentence")}
@@ -271,14 +304,49 @@ export default function Home() {
             Sentence
           </button>
         </div>
-        <div className="bg-[var(--transparent-50)] rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-15 flex flex-col items-center gap-8 max-w-4xl w-full">
-          {/* Add Button to open AddModal */}
-          <div className="flex justify-end w-full mb-2">
+
+        {/* Center box */}
+        <div className="bg-[var(--transparent-50)] backdrop-blur-md backdrop-hue-rotate-180 rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-15 flex flex-col items-center gap-8 max-w-4xl w-full">
+          <div className="flex justify-between w-full">
+            {/* Search section */}
+            <div className="w-full mb-4">
+              <input
+                type="text"
+                placeholder={`Search ${mode}s...`}
+                className="w-full px-4 py-2 rounded border border-neutral-700 bg-transparent text-[var(--luxury-gold-light)] focus:outline-none focus:border-[var(--luxury-gold)] transition-colors"
+              />
+            </div>
+            {/* Add Button to open AddModal */}
+            <div className="flex justify-end w-full mb-2">
+              <button
+                className="bg-[var(--transparent-50)] text-[var(--luxury-gold)] px-4 py-2 rounded border-b-2 hover:bg-[var(--luxury-black-2)] font-semibold"
+                onClick={() => setModalOpen("add")}
+              >
+                + {mode.charAt(0).toUpperCase() + mode.slice(1)}
+              </button>
+            </div>
+          </div>
+          {/* View mode toggle */}
+          <div className="flex gap-2 mb-4">
             <button
-              className="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600 font-semibold"
-              onClick={() => setModalOpen("add")}
+              className={`px-4 py-2 rounded-full font-semibold transition-colors ${
+                viewMode === "table"
+                  ? "bg-[var(--luxury-gold)] text-black"
+                  : "bg-neutral-800 text-[var(--luxury-gold-light)]"
+              }`}
+              onClick={() => setViewMode("table")}
             >
-              Add {mode.charAt(0).toUpperCase() + mode.slice(1)}
+              Table View
+            </button>
+            <button
+              className={`px-4 py-2 rounded-full font-semibold transition-colors ${
+                viewMode === "card"
+                  ? "bg-[var(--luxury-gold)] text-black"
+                  : "bg-neutral-800 text-[var(--luxury-gold-light)]"
+              }`}
+              onClick={() => setViewMode("card")}
+            >
+              Card View
             </button>
           </div>
           <AddModal
@@ -297,57 +365,106 @@ export default function Home() {
             mode={mode}
           />
           {/* Table */}
-          <div className="overflow-x-auto w-full">
-            <table className="min-w-full text-left border-collapse">
-              <thead>
-                <tr>
-                  {fields[mode].map((f) => (
-                    <th key={f.key} className="px-4 py-2 capitalize">
-                      {f.label}
-                    </th>
-                  ))}
-                  <th className="px-4 py-2">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item) => (
-                  <tr key={item.id} className="border-t">
+          {viewMode === "table" ? (
+            <div className="overflow-x-auto w-full">
+              <table className="min-w-full text-left border-collapse">
+                <thead>
+                  <tr>
                     {fields[mode].map((f) => (
-                      <td key={f.key} className="px-4 py-2">
+                      <th key={f.key} className="px-4 py-2 capitalize">
+                        {f.label}
+                      </th>
+                    ))}
+                    <th className="px-4 py-2">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item) => (
+                    <tr key={item.id} className="border-t">
+                      {fields[mode].map((f) => (
+                        <td
+                          key={f.key}
+                          className="max-w-[75px] px-4 py-2 whitespace-normal break-words"
+                        >
+                          {Array.isArray(item[f.key])
+                            ? item[f.key].join(", ")
+                            : item[f.key] || ""}
+                        </td>
+                      ))}
+                      <td className="px-4 py-2 flex gap-2">
+                        <button
+                          className="bg-amber-200 text-black px-2 py-1 rounded"
+                          onClick={() => handleEdit(item)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="bg-red-500 text-black px-2 py-1 rounded"
+                          onClick={() => handleDelete(item.id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  {data.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={fields[mode].length + 1}
+                        className="text-center py-4 text-gray-400"
+                      >
+                        No {mode}s yet.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
+              {data.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-[var(--luxury-black-2)] rounded-xl p-6 shadow flex flex-col gap-2 cursor-pointer hover:bg-[var(--transparent-50)]  transition-colors"
+                >
+                  {fields[mode].map((f) => (
+                    <div
+                      key={f.key}
+                      onClick={() => handleOpenCard(item)}
+                      className=""
+                    >
+                      <span className="font-semibold">{f.label}:</span>{" "}
+                      <span>
                         {Array.isArray(item[f.key])
                           ? item[f.key].join(", ")
                           : item[f.key] || ""}
-                      </td>
-                    ))}
-                    <td className="px-4 py-2 flex gap-2">
-                      <button
-                        className="bg-blue-500 text-white px-2 py-1 rounded"
-                        onClick={() => handleEdit(item)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="bg-red-500 text-white px-2 py-1 rounded"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-                {data.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan={fields[mode].length + 1}
-                      className="text-center py-4 text-gray-400"
+                      </span>
+                    </div>
+                  ))}
+
+                  {/* <div className="flex items-center justify-around gap-2 mt-2">
+                    <button
+                      className="bg-amber-200 text-black px-2 py-1 rounded"
+                      onClick={() => handleEdit(item)}
                     >
-                      No {mode}s yet.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                      Edit
+                    </button>
+                    <button
+                      className="bg-red-500 text-black px-2 py-1 rounded"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      Delete
+                    </button>
+                  </div> */}
+                </div>
+              ))}
+              {data.length === 0 && (
+                <div className="col-span-full text-center text-gray-400 py-4">
+                  No {mode}s yet.
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
       {/* Edit Modal */}

@@ -1,6 +1,14 @@
 import React from "react";
 
-export default function EditModal({ open, fields, editingItem, setEditingItem, onSave, onCancel, mode }) {
+export default function EditModal({
+  open,
+  fields,
+  editingItem,
+  setEditingItem,
+  onSave,
+  onCancel,
+  mode,
+}) {
   if (!open || !editingItem) return null;
 
   return (
@@ -10,7 +18,7 @@ export default function EditModal({ open, fields, editingItem, setEditingItem, o
           Edit {mode.charAt(0).toUpperCase() + mode.slice(1)}
         </h2>
         <form
-          onSubmit={e => {
+          onSubmit={(e) => {
             e.preventDefault();
             onSave();
           }}
@@ -18,7 +26,9 @@ export default function EditModal({ open, fields, editingItem, setEditingItem, o
         >
           {fields.map((f) => (
             <div key={f.key} className="flex flex-col">
-              <label className="text-sm font-semibold mb-1 text-gray-700">{f.label}</label>
+              <label className="text-sm font-semibold mb-1 text-gray-700">
+                {f.label}
+              </label>
               <input
                 className="px-2 py-1 rounded border"
                 value={
@@ -26,12 +36,15 @@ export default function EditModal({ open, fields, editingItem, setEditingItem, o
                     ? editingItem[f.key].join(", ")
                     : editingItem[f.key] || ""
                 }
-                onChange={e =>
+                onChange={(e) =>
                   setEditingItem((prev) => ({
                     ...prev,
                     [f.key]:
                       f.key === "tags"
-                        ? e.target.value.split(",").map(t => t.trim()).filter(Boolean)
+                        ? e.target.value
+                            .split(",")
+                            .map((t) => t.trim())
+                            .filter(Boolean)
                         : e.target.value,
                   }))
                 }

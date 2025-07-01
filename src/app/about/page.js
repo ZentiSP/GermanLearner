@@ -1,7 +1,9 @@
 // filepath: src/app/about/page.js
+import Navbar from "@/components/navbar.js";
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)] flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0">
+      <Navbar />
       {/* Center Grid Box */}
       <main className="flex flex-1 items-center justify-center w-full pt-32 pb-12">
         <div className="bg-[var(--transparent-50)] rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-20 flex flex-col items-center gap-8 max-w-4xl w-full">

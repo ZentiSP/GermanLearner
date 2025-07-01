@@ -62,3 +62,37 @@ export async function DELETE(request) {
 
   return Response.json(deletedWord, { status: 200 });
 }
+
+export async function PUT(request) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id, german, meaning, example, english, tags } = await request.json();
+  if (!id) {
+    return Response.json({ error: "ID is required" }, { status: 400 });
+  }
+
+  let updatedWord;
+  try {
+    updatedWord = await prisma.word.update({
+      where: {
+        userId: session.user.id,
+        id: id, // Ensure this matches the ID type in your database
+      },
+      data: {
+        german,
+        meaning,
+        example,
+        english,
+        tags,
+      },
+    });
+  } catch (error) {
+    console.error("Error updating word:", error);
+    return Response.json({ error: "Failed to update word" }, { status: 500 });
+  }
+
+  return Response.json(updatedWord, { status: 200 });
+}

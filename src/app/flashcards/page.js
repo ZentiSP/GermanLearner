@@ -12,13 +12,10 @@ export default async function Flashcards() {
 
   return (
     // Main Container
-    <div
-      className="min-h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0 bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]"
-    >
-     
-      <div>
-        <Navbar />
-      </div>
+    <div className="min-h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0 bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]">
+      <Navbar />
+
+      {/* main box centerbox */}
       <main className="flex flex-1 items-center justify-center w-full pt-32 pb-12">
         <div className="bg-[var(--transparent-50)] rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-20 flex flex-col items-center gap-6 max-w-4xl w-full">
           {/* Custom Grid: 2 boxes on first row, 1 on second */}
