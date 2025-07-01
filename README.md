@@ -57,3 +57,9 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 ---
 
+## Learn More
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs/)
+- [NextAuth Documentation](https://next-auth.js.org/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/)
