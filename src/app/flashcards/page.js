@@ -12,7 +12,7 @@ export default async function Flashcards() {
 
   return (
     // Main Container
-    <div className="min-h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0 bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]">
+    <div className="min-h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0 bg-gradient-to-br from-[#1a1a1a] via-[#4b3b26] to-[var(--luxury-gold)]">
       <Navbar />
 
       {/* main box centerbox */}
@@ -23,7 +23,7 @@ export default async function Flashcards() {
             {/* First Box */}
             <Link
               href="/flashcards/daily"
-              className="bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)] rounded-xl p-24 flex flex-col items-center justify-center cursor-pointer hover:bg-gradient-to-br hover:from-[var(--luxury-black-2)] hover:to-[var(--luxury-gold-light)] transition duration-700 focus:outline-none w-full min-w-[200px]"
+              className="border-l-2 border-t-2 border-black/30 bg-gradient-to-br from-black/50 to-[var(--luxury-black-2)] rounded-xl p-24 flex flex-col items-center justify-center cursor-pointer hover:bg-gradient-to-br hover:from-hover:to-black/50 hover:to-black/80 transition duration-700 focus:outline-none w-full min-w-[200px]"
             >
               <span className="text-2xl font-semibold text-[var(--luxury-gold-light)]">
                 Daily Flashcards
@@ -32,7 +32,7 @@ export default async function Flashcards() {
             {/* Second Box */}
             <Link
               href="/flashcards/random"
-              className="bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)] rounded-xl p-24 flex flex-col items-center justify-center cursor-pointer hover:bg-gradient-to-br hover:from-[var(--luxury-black-2)] hover:to-[var(--luxury-gold)] transition duration-700 focus:outline-none w-full min-w-[200px]"
+              className="border-r-2 border-t-2 border-black/30 bg-gradient-to-bl from-black/50 to-[var(--luxury-black-2)] rounded-xl p-24 flex flex-col items-center justify-center cursor-pointer hover:bg-gradient-to-bl hover:from-hover:to-black/50 hover:to-black/80 transition duration-700 focus:outline-none w-full min-w-[200px]"
               tabIndex={0}
             >
               <span className="text-2xl font-semibold text-[var(--luxury-gold-light)]">

@@ -259,7 +259,7 @@ export default function Home() {
   }, [mode]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#1a1a1a] via-[#4b3b26] to-[var(--luxury-gold)]">
       <CardModal
         open={cardOpen === "card"}
         item={opencard}
@@ -306,7 +306,7 @@ export default function Home() {
         </div>
 
         {/* Center box */}
-        <div className="bg-[var(--transparent-50)] backdrop-blur-md backdrop-hue-rotate-180 rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-15 flex flex-col items-center gap-8 max-w-4xl w-full">
+        <div className="bg-[var(--transparent-50)] backdrop-blur-md backdrop-hue-rotate-5 rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-15 flex flex-col items-center gap-8 max-w-4xl w-full">
           <div className="flex justify-between w-full">
             {/* Search section */}
             <div className="w-full mb-4">

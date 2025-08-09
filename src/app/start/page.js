@@ -3,12 +3,12 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#1a1a1a] via-[#4b3b26] to-[var(--luxury-gold)]">
       {/* Navbar Placeholder */}
       <Navbar />
 
       {/* Main Container */}
-      <div className="bg-[var(--transparent-50)] backdrop-blur-md backdrop-hue-rotate-180 rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-15 flex flex-col items-center gap-8 max-w-4xl w-full">
+      <div className="bg-[var(--transparent-50)] rounded-3xl shadow-2xs hover:shadow-amber-400 transition-shadow duration-350 border border-neutral-800 p-12 sm:p-20 flex flex-col items-center gap-6 max-w-4xl w-full">
         <h1 className="text-3xl font-extrabold text-[var(--luxury-gold-light)] mb-2">
           Welcome to German Learner!
         </h1>
@@ -18,7 +18,7 @@ export default function Home() {
         </p>
         <div className="flex gap-4 w-full justify-center">
           <Link href="/storage" className="block flex-1 max-w-xs group">
-            <div className="w-min[200px] h-56 bg-[var(--luxury-black-2)] hover:bg-[var(--luxury-black-1)] border-[var(--luxury-black-2)] border-2 hover:border-[var(--luxury-gold)] transition-all duration-500 rounded-xl shadow-lg flex flex-col justify-center items-center cursor-pointer">
+            <div className="w-min[200px] h-56 bg-black/50 hover:bg-[var(--luxury-black-1)] border-[var(--luxury-black-2)] border-2 hover:border-[var(--luxury-gold)] transition-all duration-500 rounded-xl shadow-lg flex flex-col justify-center items-center cursor-pointer">
               {/* Storage Icon */}
               <svg
                 width="48"
@@ -61,7 +61,7 @@ export default function Home() {
             </div>
           </Link>
           <Link href="/flashcards" className="block flex-1 max-w-xs group">
-            <div className="w-full h-56 bg-[var(--luxury-black-2)] hover:bg-[var(--luxury-black-1)] border-[var(--luxury-black-2)] border-2 hover:border-[var(--luxury-gold)] transition-all duration-500 rounded-xl shadow-lg flex flex-col justify-center items-center cursor-pointer p-6">
+            <div className="w-full h-56 bg-black/50 hover:bg-[var(--luxury-black-1)] border-[var(--luxury-black-2)] border-2 hover:border-[var(--luxury-gold)] transition-all duration-500 rounded-xl shadow-lg flex flex-col justify-center items-center cursor-pointer p-6">
               {/* Flashcard Icon */}
               <svg
                 className="mb-3 w-12 h-12 fill-current text-[var(--luxury-gold)] "

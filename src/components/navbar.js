@@ -12,7 +12,7 @@ export default function Navbar() {
   const user = session?.user;
 
   return (
-    <nav className="w-full max-w-5xl mx-auto flex justify-between items-center py-4 px-6 bg-[var(--transparent-50)] backdrop-blur-md backdrop-hue-rotate-180 rounded-b-2xl shadow-lg border-b border-neutral-800 fixed top-0 left-1/2 -translate-x-1/2 z-10">
+    <nav className="w-full max-w-5xl mx-auto flex justify-between items-center py-4 px-6 bg-black/35 backdrop-blur-md rounded-b-2xl shadow-lg border-b border-neutral-800 fixed top-0 left-1/2 -translate-x-1/2 z-10">
       {/* Logo */}
       <a
         href="/"

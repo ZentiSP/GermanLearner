@@ -113,3 +113,13 @@ model DailyScore {
   correct Int
   total   Int
 }
+
+model DailyHistory {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String
+  date       DateTime
+  known      Int
+  unknown    Int
+  score      Int
+  flashcards Json     // Save the flashcards for the day
+}

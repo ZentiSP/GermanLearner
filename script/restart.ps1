@@ -1,3 +1,5 @@
+
+npx prisma migrate dev --name add-flashcards-to-dailyhistory
+npx prisma db push
 npx prisma generate
-Clear-Host
 npm run dev
