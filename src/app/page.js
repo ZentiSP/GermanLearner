@@ -30,9 +30,9 @@ export default async function Home() {
           </h1>
           <p className="text-[18px] text-neutral-500 hover:text-[var(--luxury-gold)] transition-colors duration-400 text-center mb-6">
             Start your journey to mastering German with our comprehensive
-            flashcard system. Whether you're a beginner{" "}
+            flashcard system. Whether you&apos;re a beginner{" "}
             <span className="text-[22px] text-[var(--luxury-gold-light)]">
-              [ Because I'm a beginner ]
+              [ Because I&apos;m a beginner ]
             </span>{" "}
             or looking to refine your skills, German Learner is designed to help
             you learn effectively
