@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 
 export async function POST(request) {
   try {
-    const { email, password } = await request.json();
+    const { email, password, name } = await request.json();
 
     if (!email || !password) {
       return Response.json(
@@ -26,6 +26,7 @@ export async function POST(request) {
       data: {
         email,
         password: hashedPassword,
+        name: name || email.split("@")[0], // Default to email prefix if no display name provided
       },
     });
 

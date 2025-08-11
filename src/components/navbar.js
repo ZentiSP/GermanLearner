@@ -63,7 +63,7 @@ export default function Navbar() {
 
         {status === "authenticated" && (
           <>
-            <span className="text-sm text-neutral-400">{user?.id}</span>
+            <span className="text-sm text-neutral-400">{user?.name}</span>
             <button
               onClick={() => signOut()}
               className="text-base text-neutral-300 hover:text-[var(--luxury-gold)] transition-colors px-3 py-1 border border-neutral-700 hover:border-[var(--luxury-gold)] rounded"

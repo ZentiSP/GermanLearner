@@ -49,6 +49,15 @@ export default function SignInPage() {
           >
             Sign In
           </button>
+          <div className="text-neutral-400 text-sm mt-2">
+          Doesn't have Account?{" "}
+          <a
+            href="/auth/register"
+            className="text-[var(--luxury-gold)] hover:underline"
+          >
+            Sign Up
+          </a>
+        </div>
         </form>
       </div>
     </div>

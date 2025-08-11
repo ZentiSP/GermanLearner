@@ -14,12 +14,13 @@ export default function RegisterPage() {
 
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const name = e.target.name.value || "Guest"; // Optional name field
 
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, name }),
       });
 
       if (!res.ok) {
@@ -61,6 +62,14 @@ export default function RegisterPage() {
             type="password"
             required
             placeholder="Password"
+            minLength={6}
+            className="px-4 py-3 rounded-lg bg-neutral-900 text-white border border-neutral-700 focus:outline-none focus:border-[var(--luxury-gold)] transition"
+          />
+          <input
+            name="name"
+            type="name"
+            required
+            placeholder="name (optional)"
             minLength={6}
             className="px-4 py-3 rounded-lg bg-neutral-900 text-white border border-neutral-700 focus:outline-none focus:border-[var(--luxury-gold)] transition"
           />
