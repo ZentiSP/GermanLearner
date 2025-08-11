@@ -8,21 +8,18 @@ export async function POST(request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { phrase, translation, usage, context, category, tags } =
-    await request.json();
+  const { phrase, translation, notes, tags } = await request.json();
 
-  const word = await prisma.phrase.create({
+  const pharse = await prisma.phrase.create({
     data: {
       userId: session.user.id,
       phrase,
       translation,
-      usage,
-      context,
-      category,
-      tags,
+      notes: notes ? notes : "",
+      tags: tags ? tags : [], // Ensure tags is an array
     },
   });
-  return Response.json(word, { status: 201 });
+  return Response.json(pharse, { status: 201 });
 }
 
 export async function GET(request) {
@@ -31,7 +28,7 @@ export async function GET(request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const words = await prisma.phrase.findMany({
+  const phrases = await prisma.phrase.findMany({
     where: {
       userId: session.user.id,
     },
@@ -40,7 +37,7 @@ export async function GET(request) {
     },
   });
 
-  return Response.json(words, { status: 200 });
+  return Response.json(phrases, { status: 200 });
 }
 
 export async function DELETE(request) {
@@ -50,7 +47,7 @@ export async function DELETE(request) {
   }
 
   const { id } = await request.json();
-  console.log("Deleting word with ID:", id);
+  console.log("Deleting pharse with ID:", id);
   if (!id) {
     return Response.json({ error: "ID is required" }, { status: 400 });
   }
@@ -63,4 +60,37 @@ export async function DELETE(request) {
   });
 
   return Response.json(deletedWord, { status: 200 });
+}
+
+export async function PUT(request) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id, phrase, translation, notes, tags } = await request.json();
+  if (!id) {
+    return Response.json({ error: "ID is required" }, { status: 400 });
+  }
+
+  let updatedWord;
+  try {
+    updatedWord = await prisma.phrase.update({
+      where: {
+        userId: session.user.id,
+        id: id, // Ensure this matches the ID type in your database
+      },
+      data: {
+        phrase,
+        translation,
+        notes: notes ? notes : "",
+        tags: tags ? tags : [], // Ensure tags is an array
+      },
+    });
+  } catch (error) {
+    console.error("Error updating pharse:", error);
+    return Response.json({ error: "Failed to update pharse" }, { status: 500 });
+  }
+
+  return Response.json(updatedWord, { status: 200 });
 }

@@ -17,7 +17,7 @@ export async function POST(request) {
       meaning,
       example,
       english,
-      tags,
+      tags: tags ? tags : [], // Ensure tags is an array
     },
   });
   return Response.json(word, { status: 201 });
@@ -86,7 +86,7 @@ export async function PUT(request) {
         meaning,
         example,
         english,
-        tags,
+        tags: tags ? tags : [], // Ensure tags is an array
       },
     });
   } catch (error) {

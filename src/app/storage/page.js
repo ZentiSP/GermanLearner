@@ -24,9 +24,7 @@ const initialPhrases = [
     id: 1,
     phrase: "Loading",
     translation: "Loading",
-    usage: "Loading",
-    context: "Loading",
-    category: "Loading",
+    notes: "Loading",
     tags: ["Loading"],
   },
 ];
@@ -36,7 +34,6 @@ const initialSentences = [
     sentence: "Loading",
     translation: "Loading",
     notes: "Loading",
-    source: "Loading",
     tags: ["Loading"],
   },
 ];
@@ -79,29 +76,19 @@ export default function Home() {
     phrase: [
       { key: "phrase", label: "Phrase" },
       { key: "translation", label: "Translation" },
-      { key: "usage", label: "Usage" },
-      { key: "context", label: "Context" },
-      { key: "category", label: "Category" },
+      { key: "notes", label: "Notes" },
       { key: "tags", label: "Tags" },
     ],
     sentence: [
       { key: "sentence", label: "Sentence" },
       { key: "translation", label: "Translation" },
       { key: "notes", label: "Notes" },
-      { key: "source", label: "Source" },
       { key: "tags", label: "Tags" },
     ],
   };
 
   // Add new item
   const handleAdd = async () => {
-    if (
-      !fields[mode].every(
-        (f) => newFields[f.key] && newFields[f.key].toString().trim() !== ""
-      )
-    )
-      return;
-
     let addedItem;
     if (mode === "word") {
       const res = await fetch("/api/storage/word", {
@@ -131,9 +118,7 @@ export default function Home() {
         body: JSON.stringify({
           phrase: newFields.phrase,
           translation: newFields.translation,
-          usage: newFields.usage,
-          context: newFields.context,
-          category: newFields.category,
+          notes: newFields.notes ? newFields.notes : "none",
           tags: newFields.tags
             ? newFields.tags
                 .split(",")
@@ -151,7 +136,6 @@ export default function Home() {
           sentence: newFields.sentence,
           translation: newFields.translation,
           notes: newFields.notes,
-          source: newFields.source,
           tags: newFields.tags
             ? newFields.tags
                 .split(",")

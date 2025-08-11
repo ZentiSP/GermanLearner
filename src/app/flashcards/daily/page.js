@@ -248,9 +248,9 @@ export default function DailyFlashcards() {
                     <span className="text-4xl text-[var(--luxury-gold)]">
                       {card.meaning || card.translation}
                     </span>
-                    {card.example && (
+                    {card.example || card.notes (
                       <span className="text-xl text-neutral-400 mt-2">
-                        {card.example}
+                        {card.example || card.notes}
                       </span>
                     )}
                   </div>

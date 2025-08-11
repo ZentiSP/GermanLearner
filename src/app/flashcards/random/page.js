@@ -85,7 +85,8 @@ export default function RandomFlashcards() {
                   Known: {knownCount} / {cards.length}
                 </div>
                 <div className="text-lg text-red-400">
-                  Unknown: {answers.filter((a) => a === "unknown").length} / {cards.length}
+                  Unknown: {answers.filter((a) => a === "unknown").length} /{" "}
+                  {cards.length}
                 </div>
                 <div className="text-lg text-[var(--luxury-gold-light)]">
                   Score: {Math.round((knownCount / cards.length) * 100)}%
@@ -109,11 +110,14 @@ export default function RandomFlashcards() {
                       className="bg-black/50 backdrop-blur-2xl backdrop-hue-rotate-15 rounded-xl p-5 flex flex-col"
                     >
                       <span>
-                        <span className="font-bold">{fc.type?.toUpperCase()}:</span>{" "}
+                        <span className="font-bold">
+                          {fc.type?.toUpperCase()}:
+                        </span>{" "}
                         {fc.german || fc.phrase || fc.sentence}
                       </span>
                       <span>
-                        <span className="font-semibold">Meaning:</span> {fc.meaning || fc.translation}
+                        <span className="font-semibold">Meaning:</span>{" "}
+                        {fc.meaning || fc.translation}
                       </span>
                       <span>
                         <span className="font-semibold">Your answer:</span>{" "}
@@ -147,9 +151,9 @@ export default function RandomFlashcards() {
                     <span className="text-4xl text-[var(--luxury-gold)]">
                       {card.meaning || card.translation}
                     </span>
-                    {card.example && (
+                    {(card.example || card.notes) && (
                       <span className="text-lg text-neutral-400 mt-2">
-                        {card.example || "No example provided"} 
+                        {card.example || card.notes}
                       </span>
                     )}
                   </div>
@@ -159,7 +163,6 @@ export default function RandomFlashcards() {
                 </span>
               </div>
               <div className="flex gap-4 mt-4">
-                
                 <button
                   className="bg-red-500 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-red-600"
                   onClick={handleUnknown}

@@ -15,7 +15,7 @@ export default async function Home() {
 
   return (
     // Main Container
-    <div className="min-h-screen flex flex-col items-center justify-center font-[family-name:var(--font-geist-sans)] p-0">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--luxury-black-1)] to-[var(--luxury-black-2)]">
       {/* Center Grid Box */}
       <div>
         <Navbar />

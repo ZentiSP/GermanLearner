@@ -8,17 +8,15 @@ export async function POST(request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { sentence, translation, notes, source, tags } =
-    await request.json();
+  const { sentence, translation, notes, tags } = await request.json();
 
   const word = await prisma.sentence.create({
     data: {
       userId: session.user.id,
       sentence,
       translation,
-      notes,
-      source,
-      tags,
+      notes: notes ? notes : "",
+      tags: tags ? tags : [], // Ensure tags is an array
     },
   });
   return Response.json(word, { status: 201 });
@@ -62,4 +60,37 @@ export async function DELETE(request) {
   });
 
   return Response.json(deletedWord, { status: 200 });
+}
+
+export async function PUT(request) {
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.id) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id, sentence, translation, notes, tags } = await request.json();
+  if (!id) {
+    return Response.json({ error: "ID is required" }, { status: 400 });
+  }
+
+  let updatedWord;
+  try {
+    updatedWord = await prisma.sentence.update({
+      where: {
+        userId: session.user.id,
+        id: id, // Ensure this matches the ID type in your database
+      },
+      data: {
+        sentence,
+        translation,
+        notes: notes ? notes : "",
+        tags: tags ? tags : [], // Ensure tags is an array
+      },
+    });
+  } catch (error) {
+    console.error("Error updating word:", error);
+    return Response.json({ error: "Failed to update word" }, { status: 500 });
+  }
+
+  return Response.json(updatedWord, { status: 200 });
 }
