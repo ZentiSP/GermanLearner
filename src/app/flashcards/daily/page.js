@@ -102,7 +102,7 @@ export default function DailyFlashcards() {
             {/* Left: Summary */}
             <div className="flex-1 flex flex-col items-start gap-4">
               <h2 className="text-2xl font-bold text-[var(--luxury-gold-light)] mb-2">
-                You already completed today's session!
+                You already completed today&apos;s session!
               </h2>
               <div className="flex flex-col gap-2 w-full">
                 <div className="text-lg text-[var(--luxury-gold)]">

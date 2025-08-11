@@ -16,7 +16,7 @@ export default function AboutPage() {
 
           <p className="text-lg text-neutral-500 hover:text-[var(--luxury-gold)] transition-colors duration-400 text-center mb-6">
             German Learner is a comprehensive flashcard system designed to help
-            you master the German language. Whether you're a beginner or an
+            you master the German language. Whether you&apos;re a beginner or an
             advanced learner, our platform offers a wide range of features to
             enhance your learning experience. From customizable flashcards to
             spaced repetition algorithms, we provide the tools you need to
