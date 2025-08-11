@@ -8,6 +8,10 @@ German Learner is a modern web application designed to help you master German vo
 - 📦 **Vocabulary Management**: Organize and store words, phrases, and example sentences  
 - 🃏 **Flashcards**: Practice with daily, random, or customized flashcard sets  
 
+## Live Demo
+
+Check out the deployed app here: [https://german.zendezvous.com/](https://german.zendezvous.com/)
+
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)  
